@@ -6,11 +6,20 @@ const app = express()
 const port = process.env.PORT || 5000;
 
 // middleware
-app.use(cors())
+const corsConfig = {
+    origin: ['http://localhost:5173'],
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE']
+}
+app.use(cors(corsConfig))
+app.options("", cors(corsConfig))
 app.use(express.json())
 
 app.get('/', (req, res) => {
     res.send('Let\'s explore South Asia')
+})
+app.get('/message', (req, res) => {
+    req.send('Hello World!')
 })
 
 // `````````````````````mongodb`````````````````````
