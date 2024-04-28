@@ -57,10 +57,9 @@ async function run() {
 
         app.get('/tourist-spots/:id', async (req, res) => {
             const id = req.params.id;
-            console.log(id)
+            // console.log(id)
             const query = { _id: new ObjectId(id) }
             const cursor = await touristSpotCollection.findOne(query)
-            console.log(cursor)
             res.send(cursor)
         })
 
@@ -68,6 +67,23 @@ async function run() {
             const touristSpot = req.body;
             const result = await touristSpotCollection.insertOne(touristSpot);
             res.send(result)
+        })
+
+        app.put('/tourist-spots/:id', async (req, res) => {
+            const id = req.params.id
+            const updatedSpot = req.body;
+            const { image, tourist_spot_name, country_name, average_cost, short_description, location, seasonality, total_visitor_per_year, travel_time } = updatedSpot
+            // console.log(updatedSpot)
+            const filter = { _id: new ObjectId(id) };
+            const updateDoc = {
+                $set: {
+                    tourist_spot_name, country_name, location, average_cost, seasonality, travel_time, total_visitor_per_year, image, short_description
+                }
+            }
+            const result = await touristSpotCollection.updateOne(filter, updateDoc)
+            console.log(
+                `${result.matchedCount} document(s) matched the filter, updated ${result.modifiedCount} document(s)`,
+            );
         })
 
         app.delete('/tourist-spots/:id', async (req, res) => {
