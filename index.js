@@ -7,7 +7,7 @@ const port = process.env.PORT || 5000;
 
 // middleware
 const corsConfig = {
-    origin: ['http://localhost:5173', 'https://redknot-tourism-management.web.app/'],
+    origin: ['http://localhost:5173', 'https://redknot-tourism-management.web.app'],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE']
 }
@@ -88,9 +88,7 @@ async function run() {
                 }
             }
             const result = await touristSpotCollection.updateOne(filter, updateDoc)
-            console.log(
-                `${result.matchedCount} document(s) matched the filter, updated ${result.modifiedCount} document(s)`,
-            );
+            res.send(result)
         })
 
         app.delete('/tourist-spots/:id', async (req, res) => {
