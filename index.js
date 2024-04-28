@@ -12,15 +12,12 @@ const corsConfig = {
     methods: ['GET', 'POST', 'PUT', 'DELETE']
 }
 app.use(cors(corsConfig))
-// app.options("", cors(corsConfig))
 app.use(express.json())
 
 app.get('/', (req, res) => {
     res.send('Let\'s explore South Asia')
 })
-app.get('/message', (req, res) => {
-    req.send('Hello World!')
-})
+
 
 // `````````````````````mongodb`````````````````````
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.jt5df8u.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
