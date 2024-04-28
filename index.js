@@ -49,11 +49,19 @@ async function run() {
 
         app.get('/tourist-spots/user/:email', async (req, res) => {
             const userEmail = req.params.email;
-            // console.log(userEmail)
             const query = { email: userEmail };
             const cursor = touristSpotCollection.find(query)
             const allValues = await cursor.toArray()
             res.send(allValues)
+        })
+
+        app.get('/tourist-spots/:id', async (req, res) => {
+            const id = req.params.id;
+            console.log(id)
+            const query = { _id: new ObjectId(id) }
+            const cursor = await touristSpotCollection.findOne(query)
+            console.log(cursor)
+            res.send(cursor)
         })
 
         app.post('/tourist-spots', async (req, res) => {
