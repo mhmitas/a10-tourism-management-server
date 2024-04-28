@@ -63,6 +63,13 @@ async function run() {
             res.send(cursor)
         })
 
+        app.get('/tourist-spots/limit/:num', async (req, res) => {
+            const limit = parseInt(req.params.num);
+            const cursor = touristSpotCollection.find().limit(limit);
+            const result = await cursor.toArray()
+            res.send(result);
+        })
+
         app.post('/tourist-spots', async (req, res) => {
             const touristSpot = req.body;
             const result = await touristSpotCollection.insertOne(touristSpot);
