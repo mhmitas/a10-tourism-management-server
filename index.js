@@ -51,6 +51,14 @@ async function run() {
             const allValues = await cursor.toArray()
             res.send(allValues)
         })
+        app.get('/tourist-spots/sortby', async (req, res) => {
+            // console.log('Sort By')
+            const sort = { average_cost: 1 };
+            const cursor = touristSpotCollection.find().sort(sort);
+            const result = await cursor.toArray()
+            // console.log(result)
+            res.send(result)
+        })
 
         app.get('/tourist-spots/:id', async (req, res) => {
             const id = req.params.id;
