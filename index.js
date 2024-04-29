@@ -75,6 +75,14 @@ async function run() {
             res.send(result);
         })
 
+        app.get('/tourist-spots/sort/:value', async (req, res) => {
+            const value = parseInt(req.params.value)
+            const sort = { average_cost: value }
+            const cursor = touristSpotCollection.find().sort(sort)
+            const result = await cursor.toArray()
+            res.send(result)
+        })
+
         app.post('/tourist-spots', async (req, res) => {
             const touristSpot = req.body;
             const result = await touristSpotCollection.insertOne(touristSpot);
