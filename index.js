@@ -37,6 +37,8 @@ async function run() {
 
         const database = client.db("tourismDB");
         const touristSpotCollection = database.collection("touristSpots");
+        const countriesColl = database.collection('countries')
+
 
         app.get('/tourist-spots', async (req, res) => {
             const cursor = touristSpotCollection.find({});
@@ -71,6 +73,12 @@ async function run() {
             const value = parseInt(req.params.value)
             const sort = { average_cost: value }
             const cursor = touristSpotCollection.find().sort(sort)
+            const result = await cursor.toArray()
+            res.send(result)
+        })
+
+        app.get('/tourist-spots/countries/all', async (req, res) => {
+            const cursor = countriesColl.find()
             const result = await cursor.toArray()
             res.send(result)
         })
